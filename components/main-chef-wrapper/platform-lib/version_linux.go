@@ -18,13 +18,13 @@ package platform_lib
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/chef/chef-workstation/components/main-chef-wrapper/dist"
+	"github.com/chef/chef-workstation/components/main-chef-wrapper/lib"
 	"io/ioutil"
+	"log"
 	"os"
 	"path"
 	"path/filepath"
-
-	"github.com/chef/chef-workstation/components/main-chef-wrapper/dist"
-	"github.com/chef/chef-workstation/components/main-chef-wrapper/lib"
 )
 
 var gemManifestMap map[string]interface{}
