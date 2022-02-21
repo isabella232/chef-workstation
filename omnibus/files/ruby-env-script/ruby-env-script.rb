@@ -44,7 +44,6 @@ def omnibus_env
   }
 end
 
-
 def ruby_info
   {}.tap do |ruby|
     ruby["Executable"] = Gem.ruby
@@ -58,7 +57,7 @@ def ruby_info
 end
 
 def read_version_manifest_json
-    File.read(File.join(omnibus_root, "version-manifest.json"))
+  File.read(File.join(omnibus_root, "version-manifest.json"))
 end
 
 def manifest_hash
@@ -66,7 +65,7 @@ def manifest_hash
 end
 
 def chef_ws_build_version
-    manifest_hash["build_version"]
+  manifest_hash["build_version"]
 end
 
 require "json"

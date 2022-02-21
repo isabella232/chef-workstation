@@ -137,8 +137,6 @@ func ExpectedOmnibusRoot() string {
 		os.Exit(4)
 	}
 	rootPath := path.Join(filepath.Dir(exReal), "..")
-	//groot := os.Getenv("GEM_ROOT")
-	//rootPath, err := filepath.Abs(path.Join(groot,"..","..", "..", "..", ".."))
 	return rootPath
 	//below code can be used for running and testing in local repos e.g ./main-chef-wrapper -v, comment out rest code of this method(darwin,linux)
 	//return "/opt/chef-workstation"
