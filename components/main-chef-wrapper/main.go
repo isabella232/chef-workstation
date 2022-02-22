@@ -62,14 +62,11 @@ func createRubyEnv() {
 	if err != nil {
 		log.Fatalf(err.Error())
 	}
-	if result == true && platform_lib.MatchVersions() == true {
-		fmt.Print("file exists======== ruby script not needed")
-	} else {
+	if result != true && platform_lib.MatchVersions() != true {
 		fmt.Print("file  does not exists============ call ruby script to make ruby-env.json file\n")
 		arg0 := fmt.Sprintf("%s/embedded/bin/bundle", InstallerDir)
 		arg1 := fmt.Sprintf("%s/bin/ruby-env-script.rb", InstallerDir)
 		argList := []string{"exec", "ruby", arg1, installationPath}
-		//$INSTALLER_DIR/embedded/bin/bundle exec ruby $INSTALLER_DIR/bin/ruby-env-script.rb $INSTALLER_DIR/ruby-env.json
 		cmd := exec.Command(arg0, argList...)
 		stdout, err := cmd.Output()
 
