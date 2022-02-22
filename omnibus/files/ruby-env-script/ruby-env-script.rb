@@ -64,8 +64,20 @@ def manifest_hash
   JSON.parse(read_version_manifest_json)
 end
 
+ def read_gem_version_manifest_json
+    File.read(File.join(omnibus_root, "gem-version-manifest.json"))
+ end
+
+ def gem_manifest_hash
+   JSON.parse(read_gem_version_manifest_json)
+ end
+
 def chef_ws_build_version
   manifest_hash["build_version"]
+end
+
+def chef_cli_version
+ gem_manifest_hash["chef-cli"][0]
 end
 
 require "json"
@@ -75,6 +87,7 @@ info["omnibus path"] = omnibus_env
 info["omnibus root"] = omnibus_root
 info["ruby info"] = ruby_info
 info["build_version"] = chef_ws_build_version
+info["chef-cli"] = chef_cli_version
 
 j = JSON.pretty_generate(info)
 

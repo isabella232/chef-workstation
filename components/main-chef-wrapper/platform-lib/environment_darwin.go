@@ -7,8 +7,6 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-
-	"github.com/chef/chef-workstation/components/main-chef-wrapper/lib"
 )
 
 type EnvInfo struct {
@@ -59,7 +57,7 @@ func RunEnvironment() error {
 
 func WorkstationInfo() ChefWorkstationInfo {
 	if OmnibusInstall() {
-		info := ChefWorkstationInfo{Version: lib.ChefCliVersion} // todo make sure we take right version from --cli-repo( lib/chef-cli/helpers.rb )
+		info := ChefWorkstationInfo{Version: CliVersion()} // todo make sure we take right version from --cli-repo( lib/chef-cli/helpers.rb )
 		info.Home = PackageHome()
 		info.InstallDirectory = omnibusRoot() // todo --can be shifted to cli_helper.rb
 		info.PolicyfileConfig = PolicyFileConfigInfo{CachePath: CachePath(), StoragePath: StoragePath()}

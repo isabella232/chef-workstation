@@ -27,16 +27,6 @@ func PackageHome() string {
 }
 
 func DefaultPackageName() string {
-	// this logic can be used if other logic doesn't work.
-	//if runtime.GOOS == "windows" {
-	//home := os.Getenv("HOMEDRIVE") + os.Getenv("HOMEPATH")
-	//if home == "" {
-	//home = os.Getenv("USERPROFILE")
-	//home = os.Getenv("LOCALAPPDATA")
-	//}
-	//return home
-	//}
-	//return os.Getenv("HOME")
 	home, err := os.UserHomeDir()
 	if err != nil {
 		log.Fatal(err)
@@ -78,6 +68,18 @@ func RubyVersion() string {
 		rubyVersion = data["Version"].(string)
 	}
 	return rubyVersion
+}
+
+func CliVersion() string {
+	cliVersion := ""
+	if rubyenvMap == nil {
+		return cliVersion
+	}
+	data, ok := rubyenvMap["chef-cli"]
+	if ok {
+		cliVersion = data.(string)
+	}
+	return cliVersion
 }
 
 func RubyGemsVersion() string {
