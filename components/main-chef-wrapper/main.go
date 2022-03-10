@@ -33,7 +33,11 @@ import (
 
 func doStartupTasks() error {
 	createDotChef()
-	createRubyEnv()
+	if runtime.GOOS == "windows" {
+		createRubyEnvWindows()
+	} else {
+		createRubyEnvUnix()
+	}
 	return nil
 }
 
@@ -49,13 +53,8 @@ func createDotChef() {
 	os.Mkdir(path, 0700)
 }
 
-func createRubyEnv() {
-	InstallerDir := ""
-	if runtime.GOOS == "windows" {
-		InstallerDir = `C:\opscode\chef-workstation`
-	} else {
-		InstallerDir = "/opt/chef-workstation"
-	}
+func createRubyEnvUnix() {
+	InstallerDir := "/opt/chef-workstation"
 	home, err := os.UserHomeDir()
 	installationPath := path.Join(home, ".chef/ruby-env.json")
 	result, err := exists(installationPath)
@@ -63,23 +62,61 @@ func createRubyEnv() {
 		log.Fatalf(err.Error())
 	}
 	if result != true {
-		if createEnvJson(InstallerDir, installationPath) {
+		if createEnvJsonUnix(InstallerDir, installationPath) {
 			return
 		}
 	}
 	if result == true && platform_lib.MatchVersions() != true {
-		if createEnvJson(InstallerDir, installationPath) {
+		if createEnvJsonUnix(InstallerDir, installationPath) {
 			return
 		}
 	}
 	platform_lib.InitializeRubyMap()
 }
 
-func createEnvJson(InstallerDir string, installationPath string) bool {
-	arg0 := fmt.Sprintf("%s/embedded/bin/bundle", InstallerDir)
+func createRubyEnvWindows() {
+	InstallerDir := `C:\opscode\chef-workstation`
+	home, err := os.UserHomeDir()
+	installationPath := path.Join(home, `.chef\ruby-env.json`)
+	result, err := exists(installationPath)
+	if err != nil {
+		log.Fatalf(err.Error())
+	}
+	if result != true {
+		if createEnvJsonWindows(InstallerDir, installationPath) {
+			return
+		}
+	}
+	if result == true && platform_lib.MatchVersions() != true {
+		if createEnvJsonWindows(InstallerDir, installationPath) {
+			return
+		}
+	}
+	platform_lib.InitializeRubyMap()
+}
+
+func createEnvJsonUnix(InstallerDir string, installationPath string) bool {
+	//arg0 := fmt.Sprintf("%s/embedded/bin/bundle", InstallerDir)
 	arg1 := fmt.Sprintf("%s/bin/ruby-env-script.rb", InstallerDir)
-	argList := []string{"exec", "ruby", arg1, installationPath}
-	cmd := exec.Command(arg0, argList...)
+	//argList := []string{"exec", "ruby", arg1, installationPath} # Todo- commented lines with bundle exec worked earlier, for now using only ruby.
+	//cmd := exec.Command(arg0, argList...)
+	argList := []string{arg1, installationPath}
+	cmd := exec.Command("ruby", argList...)
+	stdout, err := cmd.Output()
+
+	if err != nil {
+		fmt.Println(err.Error())
+		return true
+	}
+	// Print the output
+	fmt.Println(string(stdout))
+	return false
+}
+
+func createEnvJsonWindows(InstallerDir string, installationPath string) bool {
+	arg1 := fmt.Sprintf(`%s\bin\ruby-env-script.rb`, InstallerDir)
+	argList := []string{arg1, installationPath}
+	cmd := exec.Command("ruby", argList...)
 	stdout, err := cmd.Output()
 
 	if err != nil {
