@@ -56,6 +56,10 @@ def ruby_info
   end
 end
 
+def omnibus_install?
+  File.exist?(expected_omnibus_root) && File.exist?(File.join(expected_omnibus_root, "version-manifest.json"))
+end
+
 def read_version_manifest_json
   File.read(File.join(omnibus_root, "version-manifest.json"))
 end
@@ -73,11 +77,19 @@ def gem_manifest_hash
 end
 
 def chef_ws_build_version
-  manifest_hash["build_version"]
+  if omnibus_install?
+    manifest_hash["build_version"]
+  else
+    nil
+  end
 end
 
 def chef_cli_version
-  gem_manifest_hash["chef-cli"][0]
+  if omnibus_install?
+    gem_manifest_hash["chef-cli"][0]
+  else
+    nil
+  end
 end
 
 require "json"
