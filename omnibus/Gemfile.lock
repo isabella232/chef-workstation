@@ -1,7 +1,7 @@
 GIT
-  remote: https://github.com/chef/omnibus-software.git
-  revision: 2551807dcebf47a1eae517cd1c9d17e84a25ac8a
-  branch: main
+  remote: https://github.com/vkarve-chef/omnibus-software.git
+  revision: 1302d8e7dfff3c0de2c48158ff693ff16f675f5b
+  branch: vkarve/fix-ssl-dyld-issue
   specs:
     omnibus-software (4.0.0)
       omnibus (>= 8.0.0)
