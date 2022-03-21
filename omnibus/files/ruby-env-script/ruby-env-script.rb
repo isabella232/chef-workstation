@@ -80,7 +80,7 @@ def chef_ws_build_version
   if omnibus_install?
     manifest_hash["build_version"]
   else
-    nil
+    ""
   end
 end
 
@@ -88,7 +88,7 @@ def chef_cli_version
   if omnibus_install?
     gem_manifest_hash["chef-cli"][0]
   else
-    nil
+    ""
   end
 end
 
