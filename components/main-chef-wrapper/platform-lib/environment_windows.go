@@ -56,7 +56,7 @@ func RunEnvironment() error {
 }
 
 func WorkstationInfo() ChefWorkstationInfo {
-	if OmnibusInstall() == true {
+	if OmnibusInstall() {
 		info := ChefWorkstationInfo{Version: CliVersion()}
 		info.Home = PackageHome()
 		info.InstallDirectory = omnibusRoot()

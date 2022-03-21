@@ -133,7 +133,6 @@ func DefaultChefRuby() bool {
 	} else {
 		return false
 	}
-
 }
 
 func omnibusRoot() string {
