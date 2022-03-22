@@ -103,7 +103,7 @@ info["chef-cli"] = chef_cli_version
 
 j = JSON.pretty_generate(info)
 
-puts "Running ruby script to write environment path in ~/.chef-workstation"
+
 environment_file = ARGV[0]
 File.open(environment_file, "w") do |f|
   f.write(j)
