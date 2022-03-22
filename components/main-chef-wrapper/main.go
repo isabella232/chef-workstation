@@ -125,11 +125,8 @@ func createRubyEnvWindows() {
 func createEnvJsonUnix(InstallerDir string, installationPath string) bool {
 	arg0 := fmt.Sprintf("%s/embedded/bin/ruby", InstallerDir)
 	arg1 := fmt.Sprintf("%s/bin/ruby-env-script.rb", InstallerDir)
-	//argList := []string{"exec", "ruby", arg1, installationPath} //Todo- commented lines with bundle exec worked earlier, for now using only ruby.
 	argList := []string{arg1, installationPath}
 	cmd := exec.Command(arg0, argList...)
-	//argList := []string{arg1, installationPath}
-	//cmd := exec.Command("ruby", argList...)
 	stdout, err := cmd.Output()
 
 	if err != nil {
@@ -142,11 +139,12 @@ func createEnvJsonUnix(InstallerDir string, installationPath string) bool {
 }
 
 func createEnvJsonWindows(InstallerDir string, installationPath string) bool {
+	arg0 := fmt.Sprintf(`%s\embedded\bin\ruby`, InstallerDir)
 	arg1 := fmt.Sprintf(`%s\bin\ruby-env-script.rb`, InstallerDir)
 	argList := []string{arg1, installationPath}
-	cmd := exec.Command("ruby", argList...)
+	cmd := exec.Command(arg0, argList...)
 	stdout, err := cmd.Output()
-
+	
 	if err != nil {
 		fmt.Println(err.Error())
 		return true
