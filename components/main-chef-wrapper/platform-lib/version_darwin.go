@@ -123,7 +123,7 @@ func OmnibusInstall() bool {
 func DefaultChefRuby() bool {
 	out, err := exec.Command("which", "ruby").Output()
 	if err != nil {
-		log.Fatal(err)
+		return false
 	}
 	stringOut := string(out)
 	Sanatizepath := strings.Replace(stringOut, "\n", "", -1)
