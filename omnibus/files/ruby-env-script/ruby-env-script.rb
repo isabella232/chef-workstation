@@ -103,7 +103,6 @@ info["chef-cli"] = chef_cli_version
 
 j = JSON.pretty_generate(info)
 
-
 environment_file = ARGV[0]
 File.open(environment_file, "w") do |f|
   f.write(j)
