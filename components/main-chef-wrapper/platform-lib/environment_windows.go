@@ -101,7 +101,7 @@ func WsEnvironmentInfo() GemEnvironmentInfo {
 		}
 		gempath := os.Getenv("GEM_PATH")
 		if gempath != "" {
-			gempathmap := strings.Split(gempath, ":")
+			gempathmap := strings.Split(gempath, ";")
 			envInfo.GemPath = gempathmap
 		}
 		return envInfo
