@@ -117,7 +117,7 @@ func PathInfo() []string {
 	} else {
 		pathInfoStr := os.Getenv("PATH")
 		if pathInfoStr != "" {
-			pathInfo := strings.Split(pathInfoStr, ":")
+			pathInfo := strings.Split(pathInfoStr, ";")
 			return pathInfo
 		}
 	}
