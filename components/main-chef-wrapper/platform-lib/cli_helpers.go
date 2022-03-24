@@ -33,7 +33,7 @@ func DefaultPackageName() string {
 		log.Fatal(err)
 	}
 	if runtime.GOOS == "windows" {
-		return filepath.Join(os.Getenv("LOCALAPPDATA"), dist.WorkstationDir)
+		return filepath.Join(os.Getenv("LOCALAPPDATA"), dist.WsDirWindows)
 	} else {
 		return filepath.Join(home, dist.WorkstationDir)
 	}
